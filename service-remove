@@ -1,0 +1,8 @@
+var fs = require('fs');
+var ar=process.argv.slice(2)[0];
+try {
+    fs.unlinkSync(`./src/services/${ar}.ts`);
+    console.log("service dihapus");
+} catch (error) {
+    console.log("service tidak ditemukan")
+}

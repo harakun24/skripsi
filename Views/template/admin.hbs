@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{>admin_head this}}
+</head>
+
+<body>
+    <div id="app">
+        <div class="main-wrapper">
+            <!-- <div class="navbar-bg"></div> -->
+            {{>admin_nav}}
+            <div class="main-sidebar">
+                {{>admin_side}}
+            </div>
+
+
+            <!-- Main Content -->
+            <div class="main-content">
+                {{{body}}}
+            </div>
+            {{>admin_footer}}
+        </div>
+    </div>
+
+    <!-- General JS Scripts -->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/popper.js"></script>
+    <script src="/assets/temp/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/nicescreoll.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script> -->
+    <script src="/assets/assets/js/stisla.js"></script>
+    <script src="/assets/js/datatables.js"></script>
+
+
+    <!-- JS Libraies -->
+    <script src="/assets/simpleweather/jquery.simpleWeather.min.js"></script>
+    <script src="/assets/assets/js/chart.js/Chart.min.js"></script>
+    <script src="/assets/jqvmap/dist/jquery.vmap.min.js"></script>
+    <script src="/assets/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/assets/assets/js/summernote/summernote-bs4.js"></script>
+    <script src="/assets/assets/js/chocolat/js/jquery.chocolat.min.js"></script>
+
+    <!-- Template JS File -->
+    <script src="/assets/assets/js/scripts.js"></script>
+    <script src="/assets/assets/js/custom.js"></script>
+
+    <!-- Page Specific JS File -->
+    <!-- <script src="/assets/assets/js/page/index-0.js"></script> -->
+    <!-- <script src="/assets/assets/js/randomtr.js"></script> -->
+
+</body>
+
+</html>

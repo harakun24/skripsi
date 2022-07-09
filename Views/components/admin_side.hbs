@@ -1,0 +1,65 @@
+<aside id="sidebar-wrapper">
+    <div class="sidebar-brand">
+        <a href="/dashboard">Onegai</a>
+    </div>
+    <div class="sidebar-brand sidebar-brand-sm">
+        <a href="/dashboard">OS</a>
+    </div>
+    <ul class="sidebar-menu">
+        <li class="menu-header">{{user.username}}</li>
+        <li class="nav-item dropdown active">
+            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                <i class="fas fa-columns"></i> <span>Data</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="nav-link" href="/pengurus">Pengurus</a></li>
+                <li><a class="nav-link" href="/divisi">Divisi</a></li>
+                <li><a class="nav-link" href="/kategori">Kategori</a></li>
+                <li><a class="nav-link" href="/subkategori">Subkategori</a></li>
+                <li><a class="nav-link" href="/tanya">Pertanyaan</a></li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                <i class="fas fa-columns"></i> <span>Matriks</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="nav-link" href="/m/kategori">Kategori</a></li>
+                <li><a href="#" onclick="showsub(this,'f')">Subkategori <i class="fa fa-chevron-right"></i></a> {{#each kside}}
+                    <li class="f" style="display: none;"><a class="nav-link" href="/m/sub/{{dataValues.id_kategori}}">&nbsp;&nbsp;&nbsp;&nbsp; {{dataValues.kategori}}</a></li>
+                    {{/each}}
+                </li>
+                <li><a href="#" onclick="showsub(this,'f2')">Divisi <i class="fa fa-chevron-right"></i></a> {{#each dside}}
+                    <li class="f2" style="display: none;"><a class="nav-link" href="/m/divisi/{{dataValues.id_sub}}">&nbsp;&nbsp;&nbsp;&nbsp; {{dataValues.subkategori}}</a></li>
+                    {{/each}}
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+
+    <div class="mt-4 mb-4 p-3 hide-sidebar-mini ">
+        <a href="/logout " class="btn btn-danger btn-lg btn-block btn-icon-split ">
+            <i class="fas fa-power-off "></i> Keluar
+        </a>
+    </div>
+</aside>
+<script>
+    const showsub = (t, r) => {
+        const y = document.getElementsByClassName(r);
+        const i = t.getElementsByClassName("fa")[0];
+        if (i.classList.contains("fa-chevron-right")) {
+            i.classList.remove("fa-chevron-right")
+            i.classList.add("fa-chevron-down")
+            for (let i = 0; i < y.length; i++) {
+                y[i].style.cssText = "display:block";
+            }
+        } else {
+            i.classList.remove("fa-chevron-down")
+            i.classList.add("fa-chevron-right")
+            for (let i = 0; i < y.length; i++) {
+                y[i].style.cssText = "display:none";
+            }
+        }
+    }
+</script>

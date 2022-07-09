@@ -1,0 +1,57 @@
+var fs = require("fs");
+var color = require("colors");
+const name = process.argv.slice(2)[0];
+
+try {
+  var data = fs.readFileSync(`./src/Models/schema/${name}.ts`);
+  console.log(`model ${name} sudah ada`.red);
+  console.log(`>modeler exit`.red);
+} catch (error) {
+  console.log(`Membuat model ${name}...`.green);
+  var data = fs.writeFileSync(
+    `./src/Models/schema/${name}.ts`,
+`import base from "./baseModel";
+
+export class ${name} extends base {
+  private id: Object;
+  constructor(connect: Object, type: any) {
+    super(connect, type);
+    this.id = { type: type.INTEGER, primaryKey: true, autoIncrement: true };
+  }
+  create(){
+    //return this.define(
+      //"${name}",
+      //{ id_user: this.id },
+      //{ freezeTableName: true }
+    //);
+  }
+}`
+  );
+  console.log(` >Model`.green + ` ${name}`.yellow + `berhasil dibuat`.green);
+
+  console.log(
+    `model ${name}`.green + ` \n\t>Mendaftarkan ke modelCollector`.blue
+  );
+  var collect = fs.readFileSync("./src/Models/modelCollector.ts").toString();
+  let sp = collect.split("//autoimport");
+  fs.writeFileSync(
+    "./src/Models/modelCollector.ts",
+    sp[0] +
+      `import { ${name} } from "./schema/${name}";
+//autoimport` +
+      sp[1]
+  );
+
+  var collect = fs.readFileSync("./src/Models/modelCollector.ts").toString();
+  sp = collect.split("//autopush");
+  fs.writeFileSync(
+    "./src/Models/modelCollector.ts",
+    sp[0] +
+      `db["${name}"] = new ${name}(connect, type).create();
+\t\t//autopush` +
+      sp[1]
+  );
+
+  console.log(`\t>${name} terdaftar di modelCollector`.blue);
+  console.log(`modeler exit`.yellow);
+}

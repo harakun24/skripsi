@@ -1,0 +1,47 @@
+var fs = require('fs');
+var name = process.argv.slice(2)[0];
+var color = require("colors");
+// var data = fs.readFileSync('file.txt');
+try {
+    fs.unlinkSync(`./src/Routers/${name}.ts`);
+    console.log(`Router ${name} terhapus...`.green)
+
+    fs.readFile(`./src/Routers/routerCollector.ts`, {encoding:'utf-8'}, function(err,data){
+        if(err) throw err;
+
+        let arr = data.split("\n");
+        let key=`import {${name}} from "./${name}";`;
+        let index=-1;
+        for(let i=0;i<arr.length;i++){
+            if(arr[i].includes(key)){
+                index=i;
+                break;
+            }
+        }
+        arr.splice(index,1);
+
+        key = `from:new ${name}()})`;
+        index=-1;
+
+        for(let i=0;i<arr.length;i++){
+            if(arr[i].includes(key)){
+                index=i;
+                break;
+            }
+        }
+
+        arr.splice(index,1);
+        const res=arr.join("\n");
+
+
+        fs.writeFileSync("./src/Routers/routerCollector.ts", res);
+
+        console.log(`   >membersihkan dependency ${name} dalam routerCollectors`.yellow+`
+    >membersihkan instance ${name} dalam routerCollectors`.yellow+`
+    >router telah dibersihkan...`.green+`
+>Collector exit`.blue)
+    })
+} catch (error) {
+    console.log(`Router tidak tidak temukan`.red);
+    console.log(`>Collector exit...`.red);
+}

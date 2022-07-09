@@ -1,0 +1,183 @@
+<section class="section">
+    <div class="section-header">
+        <h1>Dashboard / Divisi</h1>
+    </div>
+
+    <div class="row">
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <!-- <h4>peserta</h4> -->
+                    <button onclick="tambah()" class="btn btn-lg btn-success py-2" style="border-radius: 8px;"><i class="fa fa-plus"></i> | tambah</button>
+                    <!-- <div class="card-header-action">
+                        <a href="#" class="btn btn-primary">View All</a>
+                    </div> -->
+                </div>
+                <div class="card-body p-2">
+                    <div class="table-responsive">
+                        <table class="table mb-0 text-center" id="peserta">
+                            <thead>
+                                <tr>
+                                    <th>divisi</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+
+                                {{#each divisi}}
+                                <tr>
+                                    {{#with this.dataValues}}
+                                    <td>{{divisi}}</td>
+                                    <td>
+                                        <a onclick="edit('{{id_divisi}}')" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <a onclick="hapus('{{id_divisi}}')" class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                    {{/with}}
+                                </tr>
+                                {{else}}
+                                <tr>
+                                    <td colspan="3">data kosong</td>
+                                </tr>
+                                {{/each}}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<link rel="stylesheet" href="/assets/css/sweetalert2.min.css">
+<link rel="stylesheet" href="/assets/css/animate.min.css">
+<script src="/assets/js/sweetalert2.all.min.js"></script>
+<script>
+    window.onload = () => {
+        if ("{{info}}" == "failed")
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: "Gagal",
+                text: "terjadi kesalahan, mohon cek kembali",
+                showConfirmButton: false,
+                timer: 2500
+            })
+        else if ("{{info}}" == "add")
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: "Berhasil menambah",
+                text: "divisi baru berhasil ditambahkan",
+                showConfirmButton: false,
+                timer: 3500
+            })
+        else if ("{{info}}" == "edit")
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: "Berhasil mengubah",
+                text: "divisi telah berhasil diubah",
+                showConfirmButton: false,
+                timer: 3500
+            })
+        else if ("{{info}}" == "div")
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: "Tambah divisi",
+                text: "divisi minimal 3",
+                showConfirmButton: false,
+                timer: 3500
+            })
+        else if ("{{info}}" == "del")
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: "Berhasil menghapus",
+                text: "divisi telah berhasil dihapus",
+                showConfirmButton: false,
+                timer: 3500
+            })
+        $('#peserta').dataTable({
+            "pageLength": 5
+        });
+    }
+    tambah = () => {
+        Swal.fire({
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            },
+            html: `
+                <div class="col-12 mt-3 d-flex justify-content-center">
+                <form class="col-8" action="/divisi/tambah" method="post">
+                    <div class="mb-3">
+                        <label class=" d-flex justify-content-start form-label" for="divisi">Divisi</label>
+                        <input required="true" style="outline:none;padding-top:10px;padding-bottom:10px" class="form-control item" type="text" id="divisi" name="divisi">
+                    </div>
+                   
+                    <div class="mb-3">
+                        <button class="btn btn-outline-primary btn-lg d-block w-100 mt-2 d-flex justify-content-around overflow-hidden align-items-center" style="border-radius:7px;padding-top:10px;padding-bottom:10px" type="submit">Simpan</button>
+                    </div>
+                </form>
+                </div>
+                `,
+            showConfirmButton: false
+        })
+    }
+    edit = (id) => {
+        fetch("/divisi/" + id)
+            .then(data => data.json())
+            .then(data => {
+                Swal.fire({
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    },
+                    html: `
+                <div class="col-12 mt-3 d-flex justify-content-center">
+                <form class="col-8" action="/divisi/ubah/${data.id_divisi}" method="post">
+                    <div class="mb-3">
+                        <label class=" d-flex justify-content-start form-label" for="divisi">Divisi</label>
+                        <input required="true" style="outline:none;padding-top:10px;padding-bottom:10px" class="form-control item" type="text" id="divisi" value="${data.divisi}" name="divisi">
+                    </div>
+                   
+                    <div class="mb-3">
+                        <button class="btn btn-outline-primary btn-lg d-block w-100 mt-2 d-flex justify-content-around overflow-hidden align-items-center" style="border-radius:7px;padding-top:10px;padding-bottom:10px" type="submit">Simpan</button>
+                    </div>
+                </form>
+                </div>
+                `,
+                    showConfirmButton: false
+                })
+            });
+
+    }
+    hapus = (id) => {
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: "Yakin ingin menghapus divisi?",
+            icon: 'warning',
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            },
+            showCancelButton: true,
+            confirmButtonColor: '#6777ef',
+            cancelButtonColor: '#fc544b',
+            confirmButtonText: 'Ya, hapus',
+            cancelButtonText: 'batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/divisi/hapus/" + id;
+            }
+        })
+    }
+</script>

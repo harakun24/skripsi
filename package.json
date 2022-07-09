@@ -1,0 +1,50 @@
+{
+    "name": "skripsionegaishelter",
+    "version": "1.0.0",
+    "description": "ini projek baru, yg lama hilang",
+    "main": "./app",
+    "scripts": {
+        "start": "node app",
+        "go": "nodemon --watch app",
+        "w-ts": "tsc -w",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "hilang"
+    ],
+    "author": "dimas av",
+    "license": "ISC",
+    "dependencies": {
+        "arkit": "^1.6.4",
+        "axios": "^0.21.1",
+        "colors": "^1.4.0",
+        "colors.ts": "^1.0.20",
+        "cookie-parser": "^1.4.5",
+        "crypto-js": "^4.1.1",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "express-flash": "0.0.2",
+        "express-handlebars": "^5.3.2",
+        "express-session": "^1.17.2",
+        "faker": "^5.5.3",
+        "hbs": "^4.1.2",
+        "helmet": "^4.6.0",
+        "jsonwebtoken": "^8.5.1",
+        "morgan": "^1.10.0",
+        "multer": "^1.4.2",
+        "mysql2": "^2.2.5",
+        "nodemon": "^2.0.7",
+        "pm2": "^5.1.0",
+        "sequelize": "^6.13.0",
+        "socket.io": "^4.1.2",
+        "uuidv5": "^1.0.0"
+    },
+    "devDependencies": {
+        "@types/cookie-parser": "^1.4.2",
+        "@types/crypto-js": "^4.1.0",
+        "@types/express": "^4.17.13",
+        "@types/express-flash": "^0.0.2",
+        "@types/express-session": "^1.17.4",
+        "@types/morgan": "^1.9.3"
+    }
+}

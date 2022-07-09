@@ -1,0 +1,8 @@
+PORT = 8080
+db_env      = production
+DB.HOST     = onegaiweb
+DB.USER     = root
+DB.PASSWORD = 123
+DB.DATABASE = onegai2
+
+salt_bitter = secret

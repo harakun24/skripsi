@@ -1,0 +1,34 @@
+const arr=process.argv.slice(2)
+const color=require("colors");
+var fs = require('fs');
+const ar=arr[0];
+const ar2=arr[1] || `/${ar}`;
+    try{
+        const data= fs.readFileSync(`./src/Routers/${ar}.ts`).toString();
+        console.log("nama sudah digunakan untuk router lain\n>routerer exit".red);
+    }
+    catch(err){        
+    var data = fs.writeFileSync(`./src/Routers/${ar}.ts`,
+`import {Router, Response, Request} from "../Helper/express";
+import baseRouter from "./baseRouter";
+//import service from "../Services/yourService";
+
+export class ${ar} extends baseRouter {
+    routing(rt:Router):void{
+        //this.router.get("/",something())
+    }
+}`);
+console.log(`route ${ar}`.green+` \n\t>Mendaftarkan ke routerCollector`.blue)
+var collect = fs.readFileSync("./src/Routers/routerCollector.ts").toString();
+let sp = collect.split("//autoimport");
+fs.writeFileSync("./src/Routers/routerCollector.ts", sp[0]+`import {${ar}} from "./${ar}";
+//autoimport`+sp[1])
+
+var collect = fs.readFileSync("./src/Routers/routerCollector.ts").toString();
+sp = collect.split("//autopush");
+fs.writeFileSync("./src/Routers/routerCollector.ts", sp[0]+`this.list.push({to:"${ar2}", from:new ${ar}()})
+\t\t//autopush`+sp[1])
+
+console.log(`\t>${ar} terdaftar di routerCollector`.blue);
+console.log(`routerer exit`.yellow);
+}

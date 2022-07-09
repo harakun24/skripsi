@@ -1,0 +1,46 @@
+var fs = require('fs');
+var name = process.argv.slice(2)[0];
+var color = require("colors");
+// var data = fs.readFileSync('file.txt');
+try {
+    fs.unlinkSync(`./src/Models/schema/${name}.ts`);
+    console.log(`Model ${name} terhapus...`.green)
+
+    fs.readFile(`./src/Models/modelCollector.ts`, {encoding:'utf-8'}, function(err,data){
+        if(err) throw err;
+
+        let arr = data.split("\n");
+        let key=`import { ${name} } from "./schema/${name}";`;
+        let index=-1;
+        for(let i=0;i<arr.length;i++){
+            if(arr[i].includes(key)){
+                index=i;
+                break;
+            }
+        }
+        arr.splice(index,1);
+
+        key = `new ${name}(connect, type).create()`;
+        index=-1;
+
+        for(let i=0;i<arr.length;i++){
+            if(arr[i].includes(key)){
+                index=i;
+                break;
+            }
+        }
+
+        arr.splice(index,1);
+        const res=arr.join("\n");
+
+
+        fs.writeFileSync("./src/Models/modelCollector.ts", res);
+
+        console.log(`   >membersihkan dependency ${name} dalam modelCollectors`.yellow+`
+    >membersihkan instance ${name} dalam modelCollectors`.yellow+`
+>Collector exit`.blue)
+    })
+} catch (error) {
+    console.log(`Model tidak tidak temukan`.red);
+    console.log(`>Collector exit...`.red);
+}

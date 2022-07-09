@@ -1,0 +1,308 @@
+<section class="section">
+    <div class="section-header">
+        <h1>Dashboard / Pertanyaan</h1>
+    </div>
+
+    <div class="row">
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <!-- <h4>peserta</h4> -->
+                    <button onclick="tambah()" class="btn btn-lg btn-success py-2" style="border-radius: 8px;"><i class="fa fa-plus"></i> | tambah</button>
+                    <!-- <div class="card-header-action">
+                        <a href="#" class="btn btn-primary">View All</a>
+                    </div> -->
+                </div>
+                <div class="card-body p-2">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0 text-center" id="peserta">
+                            <thead>
+                                <tr>
+                                    <th>pertanyaan</th>
+                                    <th>jawaban</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+
+                                {{#each tanya}}
+                                <tr>
+                                    {{#with this.dataValues}}
+                                    <td>{{pertanyaan}}</td>
+                                    <td>
+                                        <ul class="p-2 d-flex flex-column align-items-start justify-content-start" style="padding-bottom:10px;border:1px solid rgba(66, 66, 66, 0.438);border-radius:8px">
+                                            <li style="padding-bottom:8px;" class="mt-3 d-flex justify-content-between">
+                                                <button onclick="jawab_tambah('{{id_tanya}}')" class="btn btn-sm btn-success py-1 px-2" style="border-radius: 8px;"><i class="fa fa-plus"></i> | tambah</button>
+                                            </li>
+                                            {{#each jawabs}} {{#with this.dataValues}}
+                                            <li class=" mt-3 d-flex justify-content-between col-12">
+                                                <div>
+                                                    {{jawaban}} <b> ({{nilai}}) </b> - <i>{{divisi.dataValues.divisi}}</i>
+                                                </div>
+                                                <span style="font-size: 0.5">
+                                                   <button style="color:#20d3e4 !important" onclick="jawab_edit('{{id_jawab}}')" class="btn btn-sm btn-outline-primary btn-action mr-1 p-0" ><i class="fa fa-pencil-alt"></i></button>
+                                                   <button style="color:#c2e404 !important" onclick="jawab_hapus('{{id_jawab}}')" class="btn btn-sm btn-outline-danger btn-action p-0"><i class="fa fa-trash"></i></button>
+                                                </span>
+                                            </li>
+                                            {{/with}} {{else}}
+                                            <i>Belum ada jawaban</i> {{/each}}
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <button onclick="edit('{{id_tanya}}')" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></button>
+                                        <button onclick="hapus('{{id_tanya}}')" class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                    {{/with}}
+                                </tr>
+                                {{else}}
+                                <tr>
+                                    <td colspan="3">data kosong</td>
+                                </tr>
+                                {{/each}}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<link rel="stylesheet" href="/assets/css/sweetalert2.min.css">
+<link rel="stylesheet" href="/assets/css/animate.min.css">
+<script src="/assets/js/sweetalert2.all.min.js"></script>
+<script>
+    window.onload = () => {
+        if ("{{info}}" == "failed")
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: "Gagal",
+                text: "terjadi kesalahan, mohon cek kembali",
+                showConfirmButton: false,
+                timer: 2500
+            })
+        else if ("{{info}}" == "add")
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: "Berhasil menambah",
+                text: "data baru berhasil ditambahkan",
+                showConfirmButton: false,
+                timer: 3500
+            })
+        else if ("{{info}}" == "edit")
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: "Berhasil merubah",
+                text: "data telah berhasil diubah",
+                showConfirmButton: false,
+                timer: 3500
+            })
+        else if ("{{info}}" == "del")
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: "Berhasil menghapus",
+                text: "data telah berhasil dihapus",
+                showConfirmButton: false,
+                timer: 3500
+            })
+        $('#peserta').dataTable({
+            "pageLength": 5
+        });
+    }
+    tambah = () => {
+        Swal.fire({
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            },
+            html: `
+                <div class="col-12 mt-3 d-flex justify-content-center">
+                <form class="col-8" action="/tanya/tambah" method="post">
+                    <div class="mb-3">
+                        <label class=" d-flex justify-content-start form-label" for="tanya">Pertanyaan</label>
+                        <textarea required="true" style="outline:none;padding-top:10px;padding-bottom:10px;border-color: #e4e6fc;" class="item col-12" type="text" id="tanya" name="pertanyaan" rows="3"></textarea>
+                    </div>
+                   
+                    <div class="mb-3">
+                        <button class="btn btn-outline-primary btn-lg d-block w-100 mt-2 d-flex justify-content-around overflow-hidden align-items-center" style="border-radius:7px;padding-top:10px;padding-bottom:10px" type="submit">Simpan</button>
+                    </div>
+                </form>
+                </div>
+                `,
+            showConfirmButton: false
+        })
+    }
+    edit = (id) => {
+        fetch("/tanya/" + id)
+            .then(data => data.json())
+            .then(data => {
+                Swal.fire({
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    },
+                    html: `
+                <div class="col-12 mt-3 d-flex justify-content-center">
+                <form class="col-8" action="/tanya/ubah/${id}" method="post">
+                    <div class="mb-3">
+                        <label class=" d-flex justify-content-start form-label" for="tanya">Pertanyaan</label>
+                        <textarea required="true" style="outline:none;padding-top:10px;padding-bottom:10px;border-color: #e4e6fc;" class="item col-12" type="text" id="tanya" name="pertanyaan" rows="3">${data.pertanyaan}</textarea>
+                    </div>
+                   
+                    <div class="mb-3">
+                        <button class="btn btn-outline-primary btn-lg d-block w-100 mt-2 d-flex justify-content-around overflow-hidden align-items-center" style="border-radius:7px;padding-top:10px;padding-bottom:10px" type="submit">Simpan</button>
+                    </div>
+                </form>
+                </div>
+                `,
+                    showConfirmButton: false
+                })
+            });
+
+    }
+    hapus = (id) => {
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: "Yakin ingin menghapus pertanyaan?",
+            icon: 'warning',
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            },
+            showCancelButton: true,
+            confirmButtonColor: '#6777ef',
+            cancelButtonColor: '#fc544b',
+            confirmButtonText: 'Ya, hapus',
+            cancelButtonText: 'batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/tanya/hapus/" + id;
+            }
+        })
+    }
+    jawab_tambah = (id) => {
+        fetch("/divisi/all")
+            .then(data => data.json())
+            .then(data => {
+                let option = "";
+                data.forEach(div => {
+                    option += `<option value="${div.id_divisi}">${div.divisi}</option>`;
+                })
+                Swal.fire({
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    },
+                    html: `
+                    <div class="col-12 mt-3 d-flex justify-content-center">
+                <form class="col-8" action="/jawab/tambah" method="post">
+                    <input type="hidden" value="${id}" name="fk_tanya"/>
+                    <div class="mb-3">
+                        <label class=" d-flex justify-content-start form-label" for="divisi">Divisi</label>
+                        <select required="true" style="outline:none;padding-top:10px;padding-bottom:10px" class="form-control item" type="text" id="divisi" name="fk_divisi">
+                        ${option}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class=" d-flex justify-content-start form-label" for="jawaban">jawaban</label>
+                        <input required="true" style="outline:none;padding-top:10px;padding-bottom:10px" class="form-control item" type="text" id="jawaban" name="jawaban">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" d-flex justify-content-start form-label" for="nilai">Nilai</label>
+                        <input required="true" style="outline:none;padding-top:10px;padding-bottom:10px" class="form-control item" type="number" min="0" max="100" step="10" id="nilai" name="nilai">
+                    </div>
+                        
+                        <div class="mb-3">
+                            <button class="btn btn-outline-primary btn-lg d-block w-100 mt-2 d-flex justify-content-around overflow-hidden align-items-center" style="border-radius:7px;padding-top:10px;padding-bottom:10px" type="submit">Simpan</button>
+                            </div>
+                            </form>
+                            </div>
+                            `,
+                    showConfirmButton: false
+                })
+            })
+    }
+    jawab_edit = (id) => {
+        fetch("/divisi/all")
+            .then(data => data.json())
+            .then(data => {
+                fetch("/jawab/" + id)
+                    .then(jawab => jawab.json())
+                    .then(jawab => {
+                        console.log(jawab)
+                        let option = "";
+                        data.forEach(div => {
+                            option += `<option ${jawab.fk_divisi==div.id_divisi?'selected="selected"':''} value="${div.id_divisi}">${div.divisi}</option>`;
+                        })
+                        Swal.fire({
+                            showClass: {
+                                popup: 'animate__animated animate__fadeInDown'
+                            },
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutUp'
+                            },
+                            html: `
+                    <div class="col-12 mt-3 d-flex justify-content-center">
+                        <form class="col-8" action="/jawab/ubah/${id}" method="post">
+                    <div class="mb-3">
+                        <label class=" d-flex justify-content-start form-label" for="divisi">Divisi</label>
+                        <select required="true" style="outline:none;padding-top:10px;padding-bottom:10px" class="form-control item" type="text" id="divisi" name="fk_divisi">
+                            ${option}
+                            </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class=" d-flex justify-content-start form-label" for="jawaban">jawaban</label>
+                                <input value="${jawab.jawaban}" required="true" style="outline:none;padding-top:10px;padding-bottom:10px" class="form-control item" type="text" id="jawaban" name="jawaban">
+                                </div>
+                                <div class="mb-3">
+                                    <label class=" d-flex justify-content-start form-label" for="nilai">Nilai</label>
+                                    <input required="true"  value="${jawab.nilai}" style="outline:none;padding-top:10px;padding-bottom:10px" class="form-control item" type="number" min="0" max="100" step="10" id="nilai" name="nilai">
+                    </div>
+                        
+                    <div class="mb-3">
+                        <button class="btn btn-outline-primary btn-lg d-block w-100 mt-2 d-flex justify-content-around overflow-hidden align-items-center" style="border-radius:7px;padding-top:10px;padding-bottom:10px" type="submit">Simpan</button>
+                        </div>
+                        </form>
+                            </div>
+                            `,
+                            showConfirmButton: false
+                        })
+                    })
+            })
+    }
+    jawab_hapus = (id) => {
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: "Yakin ingin menghapus perjawaban?",
+            icon: 'warning',
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            },
+            showCancelButton: true,
+            confirmButtonColor: '#6777ef',
+            cancelButtonColor: '#fc544b',
+            confirmButtonText: 'Ya, hapus',
+            cancelButtonText: 'batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/jawab/hapus/" + id;
+            }
+        })
+    }
+</script>

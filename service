@@ -1,0 +1,44 @@
+const arr=process.argv.slice(2)
+const color=require("colors");
+var fs = require('fs');
+const ar=arr[0];
+    try{
+        const data= fs.readFileSync(`./src/Services/${ar}.ts`).toString();
+        console.log("nama sudah digunakan untuk service lain\n>servicer exit".red);
+    }
+    catch(err){        
+    var data = fs.writeFileSync(`./src/Services/${ar}.ts`,
+`import {Request, Response} from "../Helper/express";
+import base, { model } from "./baseService";
+
+class ${ar} extends base {
+
+    index(req:Request,res:Response) {
+        // res.sendStatus(200);
+        res.send("${ar} service")
+    }
+
+    find(req:Request,res:Response) {
+        res.sendStatus(200);
+    }
+
+    findAll(req:Request,res:Response) {
+        res.sendStatus(200);
+    }
+
+    create(req:Request,res:Response) {
+        res.sendStatus(200);
+    }
+    
+    update(req:Request,res:Response) {
+        res.sendStatus(200);
+    }
+
+    delete(req:Request,res:Response) {
+        res.sendStatus(200);
+    }
+}
+export default new ${ar}();`);
+console.log(`service ${ar}`.green+` \n\t>implementing IService...\n\t>berhasil dibuat`.blue)
+console.log(`service exit`.yellow);
+}

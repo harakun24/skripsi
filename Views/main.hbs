@@ -1,0 +1,237 @@
+<link rel="stylesheet" href="/assets/aos/aos.css">
+<script src="/assets/js/socket.io.min.js"></script>
+<style>
+    .fa-eye:hover {
+        color: rgb(0, 174, 255);
+    }
+</style>
+<section class="portfolio-block website">
+    <div class="container mt-0">
+        <div class="row align-items-center">
+            <div class="col-sm-12 col-md-7 col-lg-5" data-aos="fade-up" data-aos-duration="1000">
+                <h1 style="color: var(--bs-primary);">Sistem Informasi Onegai</h1>
+                <p style="color: var(--bs-gray-dark);"><br>ONEGAI mewadahi kegiatan mahasiswa yang bergerak di bidang keilmuwan baik berupa ilmu kreatifitas dalam berkreasi (gambar, animasi kartun 2D maupun 3D, pappercraft, visual effect tokusatsu), apresiasi seni (jepang dan korea) &amp;
+                    budaya (jepang dan korea).<br><br></p>
+                <div class="btn-group" role="group" style="margin-top: 10px;filter: brightness(97%) contrast(97%) saturate(82%);">
+                    <button onclick="daftar()" class="btn btn-primary border-0 d-flex align-items-center" type="button" style="padding-left: 50px;margin-right:10px;border-radius:10px;padding-right: 50px;border-color: transparent;">
+                             <span class="d-none d-sm-block"> Daftar</span>&nbsp;&nbsp;<h2 class="icon btbt ion-ios-personadd mt-1" style="font-size:2em;"></h2>
+                                    </button>
+                    <button onclick="masuk()" class="btn btn-outline-dark d-flex align-items-center border-0" type="button" style="padding-right: 50px;margin-left:10px;border-radius:10px;padding-left: 50px;">
+                           <span class="d-none d-sm-block"> Masuk</span>&nbsp; &nbsp;<h2 class="mt-1 icon btbt ion-ios-paperplane-outline  step size-96"></h2>
+                                    </button>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-5 d-none d-md-block" data-aos="fade-left" data-aos-duration="1400">
+                <img style="width: 150%;filter: contrast(56%) saturate(144%)" src="/assets/img/Logo_Onegai.png" alt="">
+                <div class="col-8">
+                </div>
+                <!-- <div class="portfolio-laptop-mockup d-none d-sm-block">
+                    <div class="screen" style="background: transparent;color: var(--bs-indigo);border-width: 0px;">
+                        <div class="screen-content" style="background-size: 150%;background-image: url(&quot;/assets/img/Logo_Onegai.png&quot;);border-width: 0px;filter: contrast(56%) saturate(144%) sepia(31%);"></div>
+                    </div>
+                    <div class="keyboard" style="border-width: 0px;background: transparent;"></div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-aos="fade-up" data-aos-delay="300" data-aos-duration="700" data-aos-anchor-placement="top-bottom" style="margin-top: -2em;" class="portfolio-block photography">
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-md-6 col-lg-4 item zoom-on-hover">
+                <a href="#"><img class="img-fluid image" src="/assets/img/nature/image5.jpg"></a>
+            </div>
+            <div class="col-md-6 col-lg-4 item zoom-on-hover">
+                <a href="#"><img class="img-fluid image" src="/assets/img/nature/image2.jpg"></a>
+            </div>
+            <div class="col-md-6 col-lg-4 item zoom-on-hover">
+                <a href="#"><img class="img-fluid image" src="/assets/img/tech/image4.jpg"></a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="portfolio-block call-to-action border-bottom">
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center content">
+            <h6 style="padding-right: 15px;padding-left: 15px;">Lebih banyak lagi di</h6><button class="btn btn-outline-primary btn-lg btn btn-outline-danger" type="button">instagram</button>
+        </div>
+    </div>
+</section>
+<section class="portfolio-block skills">
+    <div class="container">
+        <div class="heading">
+            <h2>Divisi Onegai</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card special-skill-item border-0">
+                    <div class="card-header bg-transparent border-0"><i class="icon bg-warning ion-ios-lightbulb-outline"></i></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Web Design</h3>
+                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card special-skill-item border-0">
+                    <div class="card-header bg-transparent border-0"><i class="icon bg-warning ion-ios-lightbulb-outline"></i></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Web Design</h3>
+                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card special-skill-item border-0">
+                    <div class="card-header bg-transparent border-0"><i class="icon bg-warning ion-ios-lightbulb-outline"></i></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Web Design</h3>
+                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card special-skill-item border-0">
+                    <div class="card-header bg-transparent border-0"><i class="icon bg-warning ion-ios-lightbulb-outline"></i></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Web Design</h3>
+                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/assets/aos/aos.js"></script>
+
+
+<script>
+    check = (t)=>{ 
+        const parent=t.parentNode;
+        const parentsuper=t.parentNode.parentNode;
+        const btn= parentsuper.querySelector("button[type=submit]");
+        
+        const span = parent.querySelector("span");
+        span.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;";
+        if(t.value.match(/([0-9]{2}\.[0-9]{2}\.[0-9]{4})/))
+       fetch("/visitor/nim/"+t.value)
+       .then(e=>e.json())
+       .then(data=>{
+           if(JSON.stringify(data)=="{}"){
+               span.classList.remove("text-danger")
+               span.classList.add("text-success");
+            span.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;*NIM belum terdaftar";
+            btn.removeAttribute("disabled");
+        }
+        else{
+            span.classList.add("text-danger")
+            span.classList.remove("text-success");
+            span.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;*NIM sudah terpakai";
+            
+        }
+    })
+    btn.setAttribute("disabled","");
+    }
+    AOS.init();
+    window.onload = () => {
+        if ("{{info}}" == "failed")
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: "Terjadi masalah",
+                text: "pastikan data yang anda masukkan sesuai",
+                showConfirmButton: false,
+                timer: 2500
+            })
+        else if ("{{info}}" == "exist")
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: "Nim sudah terdaftar",
+                text: "gunakan nim lain untuk mendaftar",
+                showConfirmButton: false,
+                timer: 3500
+            })
+        else if ("{{info}}" == "success")
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: "Berhasil daftar",
+                text: "silahkan masuk menggunakan akun yang sudah terdaftar",
+                showConfirmButton: false,
+                timer: 3500
+            })
+
+        showpass = (t) => {
+            const inputPassword = t.parentNode.querySelector("input");
+            type = inputPassword.type;
+            inputPassword.type = type == "text" ? "password" : "text"
+        }
+        daftar = () => {
+            Swal.fire({
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                },
+                html: `
+                <div class="col-12 mt-3 d-flex justify-content-center">
+                <form class="col-8" action="/visitor/register" method="post">
+                    <div class="mb-3">
+                        <label class=" d-flex justify-content-start form-label align-items-center" for="nim">nim <span class="text-success" style="font-size:60%">&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+                        <input onkeyup="check(this)" pattern="([0-9]{2}\.[0-9]{2}\.[0-9]{4})" required="true" style="outline:none;padding-top:10px;padding-bottom:10px" class="form-control item" type="text" id="nim" name="nim">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" d-flex justify-content-start form-label" for="nama">nama</label>
+                        <input required="true" style="outline:none;padding-top:10px;padding-bottom:10px" class="form-control item" type="text" id="nama" name="nama">
+                    </div>
+                    <div class="mb-3 position-relative">
+                        <label class="form-label d-flex justify-content-start align-items-center" for="password">Password <span class="text-danger" style="font-size:60%">&nbsp;&nbsp;&nbsp;&nbsp;min 8 karakter</span></label>
+                        <input pattern="([0-9a-zA-Z]{8,})" required="true" style="padding-top:10px;padding-bottom:10px" class="form-control item" type="password" id="password" name="password">
+                        <i class="fa fa-eye position-absolute" style="right:8px;top:60%;cursor:pointer;" onclick="showpass(this)"></i>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-end">  
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-outline-primary btn-lg d-block w-100 mt-2 d-flex justify-content-around overflow-hidden align-items-center" style="border-radius:7px;padding-top:10px;padding-bottom:10px" type="submit" disabled>Daftar</button></div>
+                </form>
+                </div>
+                `,
+                showConfirmButton: false
+            })
+
+        }
+
+        masuk = () => {
+            Swal.fire({
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                },
+                html: `
+                <div class="col-12 mt-3 d-flex justify-content-center">
+                <form class="col-8" action="/pengurus/auth" method="post">
+                    <div class="mb-3">
+                        <label class=" d-flex justify-content-start form-label" for="name">Username</label>
+                        <input required="true" style="outline:none;padding-top:10px;padding-bottom:10px" class="form-control item" type="text" id="name" name="username"></div>
+                    <div class="mb-3 position-relative">
+                        <label class="form-label d-flex justify-content-start " for="password">Password</label>
+                        <input required="true" style="padding-top:10px;padding-bottom:10px" class="form-control item" type="password" id="password" name="password">
+                        <i class="fa fa-eye position-absolute" style="right:8px;top:60%;cursor:pointer;" onclick="showpass(this)"></i>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-end">  
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-outline-primary btn-lg d-block w-100 mt-2 d-flex justify-content-around overflow-hidden align-items-center" style="border-radius:7px;padding-top:10px;padding-bottom:10px" type="submit">Masuk</button></div>
+                </form>
+                </div>
+                `,
+                showConfirmButton: false
+            })
+        }
+    }
+</script>
